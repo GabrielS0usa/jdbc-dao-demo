@@ -1,17 +1,17 @@
 package application;
 
 import java.text.ParseException;
-import java.util.Date;
 
-import model.entities.Department;
+import model.dao.DaoFactory;
+import model.dao.SellerDao;
 import model.entities.Seller;
 
 public class Program {
 	public static void main(String[] args) throws ParseException {
 	
-		Department obj = new Department(1, "Books");
+		SellerDao sellerDao = DaoFactory.createSellerDao();
 		
-		Seller seller = new Seller(10, "Gabriel", "gabriel@gmail.com", new Date(), 1500.00, obj);
+		Seller seller = sellerDao.findById(3);
 	
 		System.out.println(seller);
 	
