@@ -2,8 +2,8 @@ package application;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import model.dao.DaoFactory;
 import model.dao.SellerDao;
@@ -12,6 +12,8 @@ import model.entities.Seller;
 
 public class Program {
 	public static void main(String[] args) throws ParseException {
+		
+		Scanner sc = new Scanner(System.in);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
@@ -50,8 +52,15 @@ public class Program {
 		System.out.println("=== TEST 5: seller update ===");
 		seller = sellerDao.findById(9);
 		seller.setEmail("gabrielsousa.correia2@gmail.com");
-		sellerDao.update(seller);
+		//sellerDao.update(seller);
 		System.out.println("Update completed");
 		
+		System.out.println("=== TEST 6: seller delete ===");
+		System.out.print("Enter id for delete teste: ");
+		int id = sc.nextInt();
+		sellerDao.deleteById(id);
+		System.out.println("Delete completed");
+		
+		sc.close();
 	}
 }

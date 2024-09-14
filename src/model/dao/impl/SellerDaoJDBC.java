@@ -89,8 +89,20 @@ public class SellerDaoJDBC implements SellerDao {
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"DELETE FROM seller "
+					+ "WHERE Id = ? ");
+			st.setInt(1, id);
+			
+			st.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
@@ -108,7 +120,7 @@ public class SellerDaoJDBC implements SellerDao {
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Department dep = instantiateDepartment(rs);
-				Seller obj = instantiateDepartment(rs, dep);
+				Seller obj = instantiateSeller(rs, dep);
 						
 				return obj;
 			}
@@ -121,7 +133,7 @@ public class SellerDaoJDBC implements SellerDao {
 		}
 	}
 
-	private Seller instantiateDepartment(ResultSet rs, Department dep) throws SQLException {
+	private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
 		Seller obj = new Seller();
 		obj.setId(rs.getInt("Id"));
 		obj.setName(rs.getString("Name"));
@@ -164,7 +176,7 @@ public class SellerDaoJDBC implements SellerDao {
 					map.put(rs.getInt("DepartmentId"), dep);
 				}
 				
-				Seller obj = instantiateDepartment(rs, dep);
+				Seller obj = instantiateSeller(rs, dep);
 				list.add(obj);
 			}
 			return list;
@@ -203,7 +215,7 @@ public class SellerDaoJDBC implements SellerDao {
 					map.put(rs.getInt("DepartmentId"), dep);
 				}
 				
-				Seller obj = instantiateDepartment(rs, dep);
+				Seller obj = instantiateSeller(rs, dep);
 				list.add(obj);
 			}
 			return list;
