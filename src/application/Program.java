@@ -41,9 +41,17 @@ public class Program {
 		System.out.println("=== TEST 4: seller insert ===");
 		Seller newSeller = new Seller(null, "Gabriel", "gabriel@gmail.com", sdf.parse("06/05/2003"), 5000.00, dep);
 		
-		sellerDao.insert(newSeller);
+		//sellerDao.insert(newSeller);
 		
 		System.out.println(newSeller);
-	
+		
+		System.out.println();
+		
+		System.out.println("=== TEST 5: seller update ===");
+		seller = sellerDao.findById(9);
+		seller.setEmail("gabrielsousa.correia2@gmail.com");
+		sellerDao.update(seller);
+		System.out.println("Update completed");
+		
 	}
 }
