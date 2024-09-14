@@ -2,10 +2,12 @@ package application;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import model.dao.DaoFactory;
+import model.dao.DepartmentDao;
 import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
@@ -18,6 +20,8 @@ public class Program {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
 		SellerDao sellerDao = DaoFactory.createSellerDao();
+		
+		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		
 		System.out.println("=== TEST 1: seller findById ===");
 		Seller seller = sellerDao.findById(3);
@@ -50,7 +54,7 @@ public class Program {
 		System.out.println();
 		
 		System.out.println("=== TEST 5: seller update ===");
-		seller = sellerDao.findById(9);
+		seller = sellerDao.findById(1);
 		seller.setEmail("gabrielsousa.correia2@gmail.com");
 		//sellerDao.update(seller);
 		System.out.println("Update completed");
@@ -58,7 +62,44 @@ public class Program {
 		System.out.println("=== TEST 6: seller delete ===");
 		System.out.print("Enter id for delete teste: ");
 		int id = sc.nextInt();
-		sellerDao.deleteById(id);
+		//sellerDao.deleteById(id);
+		System.out.println("Delete completed");
+		
+		System.out.println("=== TEST 7: department findById ===");
+		Department department = departmentDao.findById(1);
+		System.out.println(department);
+		
+		System.out.println();
+		
+		System.out.println("=== TEST 8: department findAll ===");
+		List<Department> list2 = new ArrayList<Department>();
+		list2 = departmentDao.findAll();
+		
+		list2.forEach(s -> System.out.println(s));
+		
+		System.out.println();
+		
+		System.out.println("=== TEST 9: department insert ===");
+		Department newDepartment = new Department(null, "Cursos");
+		
+		//departmentDao.insert(newDepartment);
+		
+		System.out.println(newDepartment);
+		
+		System.out.println();
+		
+		System.out.println("=== TEST 10: department update ===");
+		department = departmentDao.findById(5);
+		department.setName("Entregas");
+		//departmentDao.update(department);
+		System.out.println("Update completed");
+		
+		System.out.println();
+		
+		System.out.println("=== TEST 11: department delete ===");
+		System.out.print("Enter id for delete teste: ");
+		id = sc.nextInt();
+		departmentDao.deleteById(id);
 		System.out.println("Delete completed");
 		
 		sc.close();
